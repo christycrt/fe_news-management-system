@@ -4,7 +4,7 @@ import LoginPage from './Page/Login';
 import styled from 'styled-components';
 
 const Global = styled.div`
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Roboto', sans-serif;  
 `
 
 function App() {
