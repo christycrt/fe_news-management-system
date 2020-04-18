@@ -1,6 +1,8 @@
 import React from 'react';
-import LoginPage from './Page/Login';
+// import LoginPage from './Page/Login';
 import styled from 'styled-components';
+
+import Routes from './Router'
 
 const Global = styled.div`
   font-family: 'Roboto', sans-serif;  
@@ -9,9 +11,8 @@ const Global = styled.div`
 function App() {
   return (
     <Global>
-       <LoginPage />
+       <Routes />
     </Global>
-   
   );
 }
 
