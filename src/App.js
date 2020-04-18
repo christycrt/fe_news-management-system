@@ -1,5 +1,4 @@
 import React from 'react';
-import './App.css';
 import LoginPage from './Page/Login';
 import styled from 'styled-components';
 
