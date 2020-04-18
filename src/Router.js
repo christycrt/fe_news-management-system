@@ -8,6 +8,7 @@ import {
 
 //Pages
 import LoginPage from './Page/Login'
+import CreateNewsPage from './Page/CreateNews'
 
 export default function Routes() {
     return (
@@ -15,6 +16,9 @@ export default function Routes() {
             <Switch>
                 <Route path="/login">
                     <LoginPage/>
+                </Route>
+                <Route path={`/:system/createnews`}>
+                    <CreateNewsPage/>
                 </Route>
             </Switch>
         </Router>
