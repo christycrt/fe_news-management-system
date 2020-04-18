@@ -10,26 +10,34 @@ const Page = styled.div`
 `
 
 const Content = styled.div`
-    position: absolute;
+    position: fixed;
     top: 50%;
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%);
+    left: 50%;
+    /* bring your own prefixes */
+    transform: translate(-50%, -50%);
 `
 
 class LoginPage extends Component {
     render() {
         return (
-            <Page>
-                <Content className="container">
-                    <div className="col-12 p-0">
-                        <div className="col-6 p-0 mx-auto">
+            <Page className="col-12">
+                <Content className="col-10 p-0">
+                    <div className="col-12 row m-0 p-0">
+                        <div className="col-12 col-sm-6 d-none d-sm-block">
                             <img src="image/logo.png" alt="logo" width="100%" />
                         </div>
-                        <h1 className="text-center">SIGN IN</h1>
-                        <div className="col-10 p-0 mx-auto">
-                            <div className="mb-3"><ButtonLineLogin /></div>
-                            <div className="mb-3"><ButtonFacebookLogin /></div>
-                            <div><ButtonGoogleLogin /></div>
+                        <div className="col-12 col-sm-6">
+                            <div className="col-12 p-0">
+                                <div className="col-6 p-0 mx-auto d-sm-none">
+                                    <img src="image/logo.png" alt="logo" width="100%" />
+                                </div>
+                                <h1 className="text-center">SIGN IN</h1>
+                                <div className="col-10 p-0 mx-auto">
+                                    <div className="mb-3"><ButtonLineLogin /></div>
+                                    <div className="mb-3"><ButtonFacebookLogin /></div>
+                                    <div><ButtonGoogleLogin /></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </Content>
