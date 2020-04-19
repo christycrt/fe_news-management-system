@@ -1,42 +1,78 @@
 import React from 'react'
+import styled from 'styled-components'
+
+import FormCreateNews from '../Component/CreateNewsPage/Form'
 
 class CreateNewsPage extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            Component: <div>Compoent 1</div>,
-            NumberComponent: 1
+            Component: 1,
+            News: {
+                Title: "",
+                Body: "",
+                Image: [],
+                NewsType: [],
+                Expiredate: null,
+                AllNewsTypes: [{type:"Sport", selected:false},{type:"Scholarship", selected: false}]
+            },
         }
     }
-    handleNextComponent = async () => {
-        if (this.state.NumberComponent !== 3) {
-            await this.setState({ NumberComponent: this.state.NumberComponent + 1 })
-            if (this.state.NumberComponent == 2) {
-                await this.setState({ Component: <div>Component 2</div> })
-            }
-            else if (this.state.NumberComponent == 3) {
-                await this.setState({ Component: <div>Component 3</div> })
-            }
+    handleComponent = () => {
+        if(this.state.Component === 1) {
+            return <FormCreateNews News={this.state.News} handleFormText={this.handleFormText} handleImage={this.handleImage} handleDeleteImage={this.handleDeleteImage} handleSelectNewsType={this.handleSelectNewsType}/>
+        }else{
+            return <div>fssdfsfsdf</div>
         }
     }
-    handlePreviousComponent = async () => {
-        if (this.state.NumberComponent !== 1) {
-            await this.setState({ NumberComponent: this.state.NumberComponent - 1 })
-            if (this.state.NumberComponent == 1) {
-                await this.setState({ Component: <div>Component 1</div> })
+    handleFormText = async (e, name) => {
+        console.log("sss")
+        let v = e.target.value
+        await this.setState(prevState => ({
+            News: {                   // object that we want to update
+                ...prevState.News,    // keep all other key-value pairs
+                [name]: v       // update the value of specific key
             }
-            else if (this.state.NumberComponent == 2) {
-                await this.setState({ Component: <div>Component 2</div> })
+        }))
+        console.log(this.state.News.Title)
+    }
+    handleImage = async (e) => {
+        let imgs = this.state.News.Image
+        let files = e.target.files
+        await Array.from(files).forEach(file => {
+            imgs.push(file)
+        })
+        await this.setState(prevState => ({
+            News: {                   // object that we want to update
+                ...prevState.News,    // keep all other key-value pairs
+                Image: imgs      // update the value of specific key
             }
-        }
+        }))
+    }
+    handleDeleteImage = async (key) => {
+        let imgs = this.state.News.Image
+        imgs.splice(key, 1)
+        await this.setState(prevState => ({
+            News: {                   // object that we want to update
+                ...prevState.News,    // keep all other key-value pairs
+                Image: imgs      // update the value of specific key
+            }
+        }))
+    }
+    handleSelectNewsType = async(key) => {
+        let allnewstype = this.state.News.AllNewsTypes
+        allnewstype[key].selected = !allnewstype[key].selected
+        await this.setState(prevState => ({
+            News: {                   // object that we want to update
+                ...prevState.News,    // keep all other key-value pairs
+                AllNewsTypes: allnewstype      // update the value of specific key
+            }
+        }))
     }
     render() {
         return (
             <div>
-                {this.state.NumberComponent}
-                {this.state.Component}
-                <button onClick={this.handlePreviousComponent}>Previous</button>
-                <button onClick={this.handleNextComponent}>Next</button>
+                {this.handleComponent()}
             </div>
         )
     }

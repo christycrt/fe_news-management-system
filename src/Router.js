@@ -9,6 +9,8 @@ import {
 //Pages
 import LoginPage from './Page/Login'
 import CreateNewsPage from './Page/CreateNews'
+import LayoutPage from './Component/LayoutPage';
+import TestPage from './Page/Test';
 
 export default function Routes() {
     return (
@@ -18,7 +20,10 @@ export default function Routes() {
                     <LoginPage/>
                 </Route>
                 <Route path={`/:system/createnews`}>
-                    <CreateNewsPage/>
+                    <LayoutPage><CreateNewsPage/></LayoutPage>
+                </Route>
+                <Route path={`/test`}>
+                    <TestPage/>
                 </Route>
             </Switch>
         </Router>
