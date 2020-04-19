@@ -3,6 +3,8 @@ import styled from 'styled-components'
 
 import FormCreateNews from '../Component/CreateNewsPage/Form'
 
+import ButtonBar from '../Component/CreateNewsPage/ButtonBar'
+
 class CreateNewsPage extends React.Component {
     constructor(props) {
         super(props)
@@ -14,13 +16,14 @@ class CreateNewsPage extends React.Component {
                 Image: [],
                 NewsType: [],
                 Expiredate: null,
+                ExpiredateCheck: false,
                 AllNewsTypes: [{type:"Sport", selected:false},{type:"Scholarship", selected: false}]
             },
         }
     }
     handleComponent = () => {
         if(this.state.Component === 1) {
-            return <FormCreateNews News={this.state.News} handleFormText={this.handleFormText} handleImage={this.handleImage} handleDeleteImage={this.handleDeleteImage} handleSelectNewsType={this.handleSelectNewsType}/>
+            return <FormCreateNews News={this.state.News} handleFormText={this.handleFormText} handleCheckExpireDate={this.handleCheckExpireDate} handleDayChange={this.handleDayChange} handleImage={this.handleImage} handleDeleteImage={this.handleDeleteImage} handleSelectNewsType={this.handleSelectNewsType} />
         }else{
             return <div>fssdfsfsdf</div>
         }
@@ -35,6 +38,23 @@ class CreateNewsPage extends React.Component {
             }
         }))
         console.log(this.state.News.Title)
+    }
+    handleCheckExpireDate = async() => {
+        let check = !this.state.News.ExpiredateCheck
+        await this.setState(prevState => ({
+            News: {                   // object that we want to update
+                ...prevState.News,    // keep all other key-value pairs
+                ExpiredateCheck: check      // update the value of specific key
+            }
+        }))
+    }
+    handleDayChange = async(day) => {
+        await this.setState(prevState => ({
+            News: {                   // object that we want to update
+                ...prevState.News,    // keep all other key-value pairs
+                Expiredate: day      // update the value of specific key
+            }
+        }))
     }
     handleImage = async (e) => {
         let imgs = this.state.News.Image
@@ -69,10 +89,14 @@ class CreateNewsPage extends React.Component {
             }
         }))
     }
+    handleShowPreview = () => {
+        console.log(this.state.News)
+    }
     render() {
         return (
-            <div>
+            <div className="pb-5">
                 {this.handleComponent()}
+                <ButtonBar Next={this.handleShowPreview}/>
             </div>
         )
     }

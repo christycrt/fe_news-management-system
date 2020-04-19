@@ -1,5 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
+import DayPickerInput from 'react-day-picker/DayPickerInput';
+import 'react-day-picker/lib/style.css';
 
 const UploadImage = styled.input`
     position: absolute;
@@ -59,9 +61,16 @@ export default function FormCreateNews(props) {
             <div className='pt-3'>
                 <p className='text-center'>Create news</p>
                 <form >
-                    <input type="text" className="form-control mb-3" value={props.News.Title} onChange={(e) => props.handleFormText(e, "Title")} placeholder="Title" />
-                    <textarea className="form-control mb-3" value={props.News.Body} onChange={(e) => props.handleFormText(e, "Body")} placeholder="Body" rows="10" />
-                    <div className='col-12 mb-3'>
+                    <input type="text" className="form-control mb-4" value={props.News.Title} onChange={(e) => props.handleFormText(e, "Title")} placeholder="Title" />
+                    <textarea className="form-control mb-4" value={props.News.Body} onChange={(e) => props.handleFormText(e, "Body")} placeholder="Body" rows="10" />
+                    <div class="form-check mb-4">
+                        <input class="form-check-input" onChange={props.handleCheckExpireDate} type="checkbox"/>
+                        <label class="form-check-label mr-4">
+                            Expire Date
+                        </label>
+                        <DayPickerInput component={(p) => <input {...p} disabled={props.News.ExpiredateCheck?"":"disabled"}/>} onDayChange={props.handleDayChange} />
+                    </div>
+                    <div className='col-12 mb-4'>
                         <div className='row'>
                             <ButtonUpload className="file border rounded text-center col-4 col-sm-3">
                                 +<br />Image
@@ -79,7 +88,7 @@ export default function FormCreateNews(props) {
                             </SlideImage>
                         </div>
                     </div>
-                    <div className="col-12 mb-3">
+                    <div className="col-12 mb-5">
                         <p>Select News Types</p>
                         <div className='row'>
                             {props.News.AllNewsTypes.map((type, key) => {
@@ -90,12 +99,6 @@ export default function FormCreateNews(props) {
                                 )
                             })}
                         </div>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" />
-                        <label class="form-check-label" for="defaultCheck1">
-                            Default checkbox
-                        </label>
                     </div>
                 </form>
             </div>
