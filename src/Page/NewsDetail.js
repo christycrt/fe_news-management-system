@@ -42,7 +42,7 @@ class NewsDetail extends React.Component {
         return (
             <div className='container'>
                 <h3>{this.state.News.Title}</h3>
-                <pre>{this.state.News.Body}</pre>
+                <pre style={{whiteSpace:"pre-wrap",wordBreak: "break-word"}}>{this.state.News.Body}</pre>
                 <div className='d-flex justify-content-between'>
                     <p>Written by {this.state.News.Author}</p>
                     <p>{this.state.News.PostDate}</p>
@@ -51,7 +51,7 @@ class NewsDetail extends React.Component {
                     <div className='row'>
                         {this.state.News.Images.map((image) => {
                             return (
-                                <ImageBox className='col-12 col-sm-4 mb-3'>
+                                <ImageBox className='col-12 col-sm-4 p-1 mb-3'>
                                     <Image src={URL.createObjectURL(image)} />
                                 </ImageBox>
                             )
