@@ -60,15 +60,15 @@ export default function FormCreateNews(props) {
         <div className='container'>
             <div className='pt-3'>
                 <p className='text-center'>Create news</p>
-                <form >
-                    <input type="text" className="form-control mb-4" value={props.News.Title} onChange={(e) => props.handleFormText(e, "Title")} placeholder="Title" />
-                    <textarea className="form-control mb-4" value={props.News.Body} onChange={(e) => props.handleFormText(e, "Body")} placeholder="Body" rows="10" />
+                <form onSubmit={props.Next}>
+                    <input required type="text" className="form-control mb-4" value={props.News.Title} onChange={(e) => props.handleFormText(e, "Title")} placeholder="Title" />
+                    <textarea required className="form-control mb-4" value={props.News.Body} onChange={(e) => props.handleFormText(e, "Body")} placeholder="Body" rows="10" />
                     <div class="form-check mb-4">
                         <input class="form-check-input" onChange={props.handleCheckExpireDate} type="checkbox"/>
                         <label class="form-check-label mr-4">
                             Expire Date
                         </label>
-                        <DayPickerInput component={(p) => <input {...p} disabled={props.News.ExpiredateCheck?"":"disabled"}/>} onDayChange={props.handleDayChange} />
+                        <DayPickerInput style={{zIndex:3, position:"absolute"}}  component={(p) => <input {...p} disabled={props.News.ExpiredateCheck?"":"disabled"}/>} onDayChange={props.handleDayChange} />
                     </div>
                     <div className='col-12 mb-4'>
                         <div className='row'>
@@ -100,6 +100,7 @@ export default function FormCreateNews(props) {
                             })}
                         </div>
                     </div>
+                    <button className='btn btn-success float-right mb-5' type="submit">Preview</button>
                 </form>
             </div>
         </div>

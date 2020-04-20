@@ -1,7 +1,7 @@
 import React from 'react'
-import styled from 'styled-components'
 
 import FormCreateNews from '../Component/CreateNewsPage/Form'
+import ReviewNews from '../Component/CreateNewsPage/PreviewNews'
 
 import ButtonBar from '../Component/CreateNewsPage/ButtonBar'
 
@@ -23,13 +23,14 @@ class CreateNewsPage extends React.Component {
     }
     handleComponent = () => {
         if(this.state.Component === 1) {
-            return <FormCreateNews News={this.state.News} handleFormText={this.handleFormText} handleCheckExpireDate={this.handleCheckExpireDate} handleDayChange={this.handleDayChange} handleImage={this.handleImage} handleDeleteImage={this.handleDeleteImage} handleSelectNewsType={this.handleSelectNewsType} />
+            return(  
+                <FormCreateNews Next={this.handleNext} News={this.state.News} handleFormText={this.handleFormText} handleCheckExpireDate={this.handleCheckExpireDate} handleDayChange={this.handleDayChange} handleImage={this.handleImage} handleDeleteImage={this.handleDeleteImage} handleSelectNewsType={this.handleSelectNewsType}/>
+            )
         }else{
-            return <div>fssdfsfsdf</div>
+            return <ReviewNews News={this.state.News}/>
         }
     }
     handleFormText = async (e, name) => {
-        console.log("sss")
         let v = e.target.value
         await this.setState(prevState => ({
             News: {                   // object that we want to update
@@ -37,7 +38,6 @@ class CreateNewsPage extends React.Component {
                 [name]: v       // update the value of specific key
             }
         }))
-        console.log(this.state.News.Title)
     }
     handleCheckExpireDate = async() => {
         let check = !this.state.News.ExpiredateCheck
@@ -89,14 +89,17 @@ class CreateNewsPage extends React.Component {
             }
         }))
     }
-    handleShowPreview = () => {
-        console.log(this.state.News)
+    handleNext = async () => {
+        await this.setState({Component:this.state.Component+1})
+    }
+    handlePrevious = async () => {
+        await this.setState({Component:this.state.Component-1})
     }
     render() {
         return (
             <div className="pb-5">
                 {this.handleComponent()}
-                <ButtonBar Next={this.handleShowPreview}/>
+                <ButtonBar Component={this.state.Component} Next={this.handleNext} Previous={this.handlePrevious}/>
             </div>
         )
     }
