@@ -14,7 +14,3 @@ const Button = styled.button`
 export const ButtonLogin = (props) => {
 return <Button><img className="mr-2" src={`image/Login/${props.children}.png`} alt="line" width="25px"/>Sign in with {props.children}</Button>
 }
-
-// export const Button = (props) => {
-//     return <div className='btn btn-warning'>{props.children}</div>
-// }

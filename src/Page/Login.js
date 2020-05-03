@@ -10,40 +10,48 @@ const Page = styled.div`
 `
 
 const Content = styled.div`
-    position: fixed;
-    top: 50%;
+    position: relative;
+    top: 45%;
     left: 50%;
     /* bring your own prefixes */
     transform: translate(-50%, -50%);
+    @media screen and (max-width 575px) {
+        position: fixed;
+    }
+`
+const ImageContent = styled.img`
+    height: 100vh;
+    width: auto;
+    @media screen and (max-width 1200px) {
+        height: auto;
+        width: 100%;
+    }
 `
 
 class LoginPage extends Component {
     render() {
         return (
-            <Page className="col-12">
-                <Content className="col-10 p-0">
-                    <div className="col-12 row m-0 p-0">
-                        <div className="col-12 col-sm-6 d-none d-sm-block">
-                            {/* <img src="image/Login/bg-mobile.png" width="100%"/> */}
-                            <img src="image/pic news.png" alt="pic news" width="100%" />
-                        </div>
-                        <div className="col-12 col-sm-6">
-                            <div className="col-12 p-0">
-                                <div className="col-10 p-0 mx-auto d-sm-none">
-                                    <img src="image/pic news.png" alt="pic news" width="100%" />
-                                </div>
-                                <h1 className="text-center">SIGN IN</h1>
-                                <div className="col-10 p-0 mx-auto">
-                                    <div className="mb-3"><ButtonLogin>Line</ButtonLogin></div>
-                                    <div className="mb-3"><ButtonLogin>Facebook</ButtonLogin></div>
-                                    <div><ButtonLogin>Google</ButtonLogin></div>
-                                </div>
-                            </div>
-                        </div>
+            <div className="col-12">
+                <div className='row'>
+                    <div className='col-7 d-none d-sm-block text-center'>
+                        <ImageContent src="image/pic news.png" alt="pic news"/>
                     </div>
-                </Content>
-            </Page>
+                    <Page className="col-12 col-sm-5">
+                        <Content className="col-10 p-0">
+                            <div className="col-8 p-0 mx-auto d-sm-none">
+                                <img src="image/pic news.png" alt="pic news" width="100%" />
+                            </div>
+                            <h3 className="text-center"><b>SIGN IN</b></h3>
+                            <div className="col-10 p-0 mx-auto">
+                                <div className="mb-3"><ButtonLogin>Line</ButtonLogin></div>
+                                <div className="mb-3"><ButtonLogin>Facebook</ButtonLogin></div>
+                                <div><ButtonLogin>Google</ButtonLogin></div>
+                            </div>
+                        </Content>
+                    </Page>
+                </div>
 
+            </div>
         )
     }
 }
