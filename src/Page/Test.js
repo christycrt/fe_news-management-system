@@ -1,7 +1,7 @@
 import React from 'react'
-
+import Layout from '../Component/LayoutPage'
 const Component1 = (props) => {
-    
+
     return (
         <div>
             {props.Text}
@@ -12,7 +12,7 @@ const Component1 = (props) => {
                     </div>
                 )
             })}
-            <input type="text" onChange={props.handleText}/>
+            <input type="text" onChange={props.handleText} />
         </div>
     )
 }
@@ -22,12 +22,12 @@ class Test extends React.Component {
         super(props)
         this.state = {
             Text1: "1",
-            Arrayy: [1,2,3],
-            Component: <div/>
+            Arrayy: [1, 2, 3],
+            Component: <div />
         }
     }
     componentDidMount() {
-        this.setState({Component:<Component1 Text={this.state.Text1} Arrayy={this.state.Arrayy} handleText={this.handleText}/>})
+        this.setState({ Component: <Component1 Text={this.state.Text1} Arrayy={this.state.Arrayy} handleText={this.handleText} /> })
     }
     handleText = (e) => {
         this.setState({
@@ -41,9 +41,9 @@ class Test extends React.Component {
     }
     render() {
         return (
-            <div className='col-12'>
-                {this.state.Component}
-            </div>
+            <Layout>
+dassdasd
+            </Layout>
         )
     }
 }
