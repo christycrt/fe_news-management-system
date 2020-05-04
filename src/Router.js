@@ -18,7 +18,25 @@ export default function Routes() {
                 <Route path="/login">
                     <LoginPage/>
                 </Route>
-                <Route path={`/:system/createnews`}>
+                <Route path={`/:system/home`}>
+                    <LayoutPage><CreateNewsPage/></LayoutPage>
+                </Route>
+                <Route path={`/:system/news/allnews`}>
+                    <LayoutPage><CreateNewsPage/></LayoutPage>
+                </Route>
+                <Route path={`/:system/news/createnews`}>
+                    <LayoutPage><CreateNewsPage/></LayoutPage>
+                </Route>
+                <Route path={`/:system/news/createnewstype`}>
+                    <LayoutPage><CreateNewsPage/></LayoutPage>
+                </Route>
+                <Route path={`/:system/targetgroup/alltargetgroup`}>
+                    <LayoutPage><CreateNewsPage/></LayoutPage>
+                </Route>
+                <Route path={`/:system/targetgroup/createtargetgroup`}>
+                    <LayoutPage><CreateNewsPage/></LayoutPage>
+                </Route>
+                <Route path={`/:system/dashboard`}>
                     <LayoutPage><CreateNewsPage/></LayoutPage>
                 </Route>
                 <Route path={`/test`}>
