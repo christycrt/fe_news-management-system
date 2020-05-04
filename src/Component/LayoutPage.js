@@ -1,4 +1,5 @@
 import React from 'react'
+import Styed from 'styled-components'
 import { Layout, Menu, Breadcrumb } from 'antd';
 import {
     AreaChartOutlined,
@@ -13,6 +14,18 @@ import 'antd/dist/antd.css';
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
 
+const SiderStyle = Styed(Sider)`
+    background-color: #050042;
+    .ant-menu-dark {
+        background: #050042;
+    }
+    .ant-menu-dark .ant-menu-inline.ant-menu-sub {
+        background: #4A4F7B;
+    }
+    .ant-menu.ant-menu-dark .ant-menu-item-selected {
+        background: #797DA4;
+    }
+`
 class LayoutPage extends React.Component {
     state = {
         collapsed: false,
@@ -26,25 +39,24 @@ class LayoutPage extends React.Component {
     render() {
         return (
             <Layout style={{ minHeight: '100vh' }}>
-                <Sider collapsible collapsed={this.state.collapsed} onCollapse={this.onCollapse}>
+                <SiderStyle collapsible collapsed={this.state.collapsed} onCollapse={this.onCollapse}>
                     <div className="logo" style={{ height: "60px" }}>
                         NMS
                     </div>
-                    <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
-                        <Menu.Item key="1" icon={<HomeOutlined />}>
+                    <Menu theme="dark" defaultOpenKeys={['sub1']} defaultSelectedKeys={['1']} mode="inline">
+                        <Menu.Item key="home" icon={<HomeOutlined />}>
                             Home
                         </Menu.Item>
-                        <SubMenu key="sub1" title="News">
-                            <Menu.Item key="2" icon={<ReadOutlined />}>All news</Menu.Item>
-                            <Menu.Item key="3" icon={<PlusOutlined />}>Create news</Menu.Item>
-                            <Menu.Item key="5" icon={<NotificationOutlined />}>Create news type</Menu.Item>
+                        <SubMenu key="news" title="News">
+                            <Menu.Item key="allnews" icon={<ReadOutlined />}>All news</Menu.Item>
+                            <Menu.Item key="createnews" icon={<PlusOutlined />}>Create news</Menu.Item>
+                            <Menu.Item key="createnewstype" icon={<NotificationOutlined />}>Create news type</Menu.Item>
                         </SubMenu>
-                        <SubMenu key="sub2" title="Target Group">
-                            <Menu.Item key="5" icon={<TeamOutlined />}>All target group</Menu.Item>
-                            <Menu.Item key="6" icon={<PlusOutlined />}>Create news type</Menu.Item>
-                            {/* <Menu.Item key="5">Alex</Menu.Item> */}
+                        <SubMenu key="targetgroup" title="Target Group">
+                            <Menu.Item key="alltargetgroup" icon={<TeamOutlined />}>All target group</Menu.Item>
+                            <Menu.Item key="createtargetgroup" icon={<PlusOutlined />}>Create news type</Menu.Item>
                         </SubMenu>
-                        <Menu.Item key="7" icon={<AreaChartOutlined />}>
+                        <Menu.Item key="dashboard" icon={<AreaChartOutlined />}>
                             Dashboard
                         </Menu.Item>
                         {/* <SubMenu key="sub2" icon={<TeamOutlined />} title="Team">
@@ -53,7 +65,7 @@ class LayoutPage extends React.Component {
                         </SubMenu>
                         <Menu.Item key="9" icon={<FileOutlined />} /> */}
                     </Menu>
-                </Sider>
+                </SiderStyle>
                 <Layout className="site-layout">
                     <nav class="navbar navbar-light bg-light" style={{ height: "50px" }}>
                         <a class="navbar-brand" href="#">
