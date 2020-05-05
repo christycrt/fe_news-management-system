@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { ButtonLogin } from '../Component/LoginPage/ButtonLogin'
 import styled from 'styled-components';
+import axios from 'axios'
+import { Link, Redirect } from 'react-router-dom'
 
 const Page = styled.div`
     height: 100vh;
@@ -29,12 +31,35 @@ const ImageContent = styled.img`
 `
 
 class LoginPage extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            login: false,
+        }
+    }
+    componentDidMount() {
+        if(new URLSearchParams(this.props.location.search).get("code")!==null) {
+            let data = new FormData()
+            data.append('code', new URLSearchParams(this.props.location.search).get("code"))
+            axios.post('http://localhost:8080/linelogin',data).then((res)=>{
+                console.log(res.data)
+                localStorage.setItem('JWT', res.data)
+                this.setState({login:true})
+            })
+        }
+    }
+    onLoginLine = () => {
+        axios.get("https://www.googe.com")
+    }
     render() {
+        if(this.state.login){
+            return <Redirect push to="/nms/home"/>
+        }
         return (
             <div className="col-12">
                 <div className='row'>
                     <div className='col-7 d-none d-sm-block text-center'>
-                        <ImageContent src="image/pic news.png" alt="pic news"/>
+                        <ImageContent src="image/pic news.png" alt="pic news" />
                     </div>
                     <Page className="col-12 col-sm-5">
                         <Content className="col-10 p-0">
@@ -43,7 +68,11 @@ class LoginPage extends Component {
                             </div>
                             <h3 className="text-center"><b>SIGN IN</b></h3>
                             <div className="col-10 p-0 mx-auto">
-                                <div className="mb-3"><ButtonLogin>Line</ButtonLogin></div>
+                                <div className="mb-3">
+                                    <a href={'https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=1654010598&redirect_uri=http://localhost:3000/login&state=12345abcde&scope=profile%20openid&nonce=09876xyz'}>
+                                        <ButtonLogin>Line</ButtonLogin>
+                                    </a>
+                                </div>
                                 <div className="mb-3"><ButtonLogin>Facebook</ButtonLogin></div>
                                 <div><ButtonLogin>Google</ButtonLogin></div>
                             </div>
