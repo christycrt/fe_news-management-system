@@ -38,13 +38,13 @@ class LoginPage extends Component {
         }
     }
     componentDidMount() {
-        if(new URLSearchParams(this.props.location.search).get("code")!==null) {
+        if (new URLSearchParams(this.props.location.search).get("code") !== null) {
             let data = new FormData()
             data.append('code', new URLSearchParams(this.props.location.search).get("code"))
-            axios.post('http://localhost:8080/linelogin',data).then((res)=>{
+            axios.post('http://localhost:8080/linelogin', data).then((res) => {
                 console.log(res.data)
                 localStorage.setItem('JWT', res.data)
-                this.setState({login:true})
+                this.setState({ login: true })
             })
         }
     }
@@ -52,34 +52,35 @@ class LoginPage extends Component {
         axios.get("https://www.googe.com")
     }
     render() {
-        if(this.state.login){
-            return <Redirect push to="/nms/home"/>
+        if (this.state.login) {
+            return <Redirect push to="/nms/home" />
         }
         return (
             <div className="col-12">
-                <div className='row'>
-                    <div className='col-7 d-none d-sm-block text-center'>
-                        <ImageContent src="image/pic news.png" alt="pic news" />
-                    </div>
-                    <Page className="col-12 col-sm-5">
-                        <Content className="col-10 p-0">
-                            <div className="col-8 p-0 mx-auto d-sm-none">
-                                <img src="image/pic news.png" alt="pic news" width="100%" />
-                            </div>
-                            <h3 className="text-center"><b>SIGN IN</b></h3>
-                            <div className="col-10 p-0 mx-auto">
-                                <div className="mb-3">
-                                    <a href={'https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=1654010598&redirect_uri=http://localhost:3000/login&state=12345abcde&scope=profile%20openid&nonce=09876xyz'}>
-                                        <ButtonLogin>Line</ButtonLogin>
-                                    </a>
+                {new URLSearchParams(this.props.location.search).get("code") ? "" :
+                    <div className='row'>
+                        <div className='col-7 d-none d-sm-block text-center'>
+                            <ImageContent src="image/pic news.png" alt="pic news" />
+                        </div>
+                        <Page className="col-12 col-sm-5">
+                            <Content className="col-10 p-0">
+                                <div className="col-8 p-0 mx-auto d-sm-none">
+                                    <img src="image/pic news.png" alt="pic news" width="100%" />
                                 </div>
-                                <div className="mb-3"><ButtonLogin>Facebook</ButtonLogin></div>
-                                <div><ButtonLogin>Google</ButtonLogin></div>
-                            </div>
-                        </Content>
-                    </Page>
-                </div>
-
+                                <h3 className="text-center"><b>SIGN IN</b></h3>
+                                <div className="col-10 p-0 mx-auto">
+                                    <div className="mb-3">
+                                        <a href={'https://access.line.me/oauth2/v2.1/authorize?response_type=code&client_id=1654010598&redirect_uri=http://localhost:3000/login&state=12345abcde&scope=profile%20openid&nonce=09876xyz'}>
+                                            <ButtonLogin>Line</ButtonLogin>
+                                        </a>
+                                    </div>
+                                    <div className="mb-3"><ButtonLogin>Facebook</ButtonLogin></div>
+                                    <div><ButtonLogin>Google</ButtonLogin></div>
+                                </div>
+                            </Content>
+                        </Page>
+                    </div>
+                }
             </div>
         )
     }
