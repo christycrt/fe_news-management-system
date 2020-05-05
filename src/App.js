@@ -1,5 +1,4 @@
 import React from 'react';
-// import LoginPage from './Page/Login';
 import styled from 'styled-components';
 
 import Routes from './Router'

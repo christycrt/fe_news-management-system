@@ -3,45 +3,27 @@ import {
     BrowserRouter as Router,
     Switch,
     Route,
-  } from "react-router-dom";
+    Link,
+} from "react-router-dom";
+import 'antd/dist/antd.css';
+
 
 //Pages
 import LoginPage from './Page/Login'
 import CreateNewsPage from './Page/CreateNews'
-import LayoutPage from './Component/LayoutPage';
-import TestPage from './Page/Test';
+import Layout from './Component/Layout';
 
 export default function Routes() {
     return (
         <Router>
             <Switch>
-                <Route path="/login">
-                    <LoginPage/>
-                </Route>
-                <Route path={`/:system/home`}>
-                    <LayoutPage><CreateNewsPage/></LayoutPage>
-                </Route>
-                <Route path={`/:system/news/allnews`}>
-                    <LayoutPage><CreateNewsPage/></LayoutPage>
-                </Route>
-                <Route path={`/:system/news/createnews`}>
-                    <LayoutPage><CreateNewsPage/></LayoutPage>
-                </Route>
-                <Route path={`/:system/news/createnewstype`}>
-                    <LayoutPage><CreateNewsPage/></LayoutPage>
-                </Route>
-                <Route path={`/:system/targetgroup/alltargetgroup`}>
-                    <LayoutPage><CreateNewsPage/></LayoutPage>
-                </Route>
-                <Route path={`/:system/targetgroup/createtargetgroup`}>
-                    <LayoutPage><CreateNewsPage/></LayoutPage>
-                </Route>
-                <Route path={`/:system/dashboard`}>
-                    <LayoutPage><CreateNewsPage/></LayoutPage>
-                </Route>
-                <Route path={`/test`}>
-                    <TestPage/>
-                </Route>
+                <Route path="/:system/news/allnews" render={(props) => <Layout {...props} >All News</Layout>}/>
+                <Route path="/:system/news/createnews" render={(props) => <Layout {...props} ><CreateNewsPage/></Layout>}/>
+                <Route path="/:system/news/createnewstype" render={(props) => <Layout {...props} >Create News Type</Layout>}/>
+                <Route path="/:system/targetgroup/alltargetgroup" render={(props) => <Layout {...props} >Al Target Group</Layout>}/>
+                <Route path="/:system/targetgroup/createtargetgroup" render={(props) => <Layout {...props} >Create Target Group</Layout>}/>
+                <Route path="/:system/home" render={(props) => <Layout {...props} >Home</Layout>}/>
+                <Route path="/:system/dashboard" render={(props) => <Layout {...props} >Dashboard</Layout>}/>
             </Switch>
         </Router>
     )
