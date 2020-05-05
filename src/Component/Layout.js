@@ -9,10 +9,12 @@ import {
     PlusOutlined,
     TeamOutlined,
 } from '@ant-design/icons';
+import Navbar from './Navbar'
 import { Link } from 'react-router-dom'
 
-const { Header, Content, Footer, Sider } = Layout;
+const { Sider } = Layout;
 const { SubMenu } = Menu;
+
 
 const LinkMenuItem = styled(Link)`
     ${props => console.log(props.selected)}
@@ -20,7 +22,13 @@ const LinkMenuItem = styled(Link)`
     &:hover {
         color: rgba(255, 255, 255, 1);
     }
-
+    
+    `
+const LinkLogo = styled(Link)`
+    color: rgba(255, 255, 255, 1);
+    &:hover {
+        color: rgba(255, 255, 255, 1);
+    }
 `
 class LayoutPage extends React.Component {
     constructor(props) {
@@ -68,32 +76,37 @@ class LayoutPage extends React.Component {
             <div>
                 {this.state.data === "ready" ?
                     <Layout>
-                        <nav class="navbar navbar-light bg-light justify-content-between" style={{ position: 'fixed', zIndex: 1, width: '100%', height: '50px' }}>
-                            <a class="navbar-brand">Navbar</a>
-                            <form class="form-inline">
-                                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
-                                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                            </form>
-                        </nav>
+                        <Navbar style={{ position: 'fixed', zIndex: 1,  }}/>
                         <Sider
                             collapsible
                             collapsed={this.state.collapsed}
                             onCollapse={this.onCollapse}
+                            width='280px'
                             style={{
                                 overflow: 'auto',
                                 overflowX: 'hidden',
                                 height: '100vh',
                                 position: 'fixed',
                                 left: 0,
-                                zIndex: 2
+                                zIndex: 2,
                             }}
                         >
-                            <div className="logo" style={{ height: "80px" }}>
-                                News Management System
-                            </div>
                             <Menu theme="dark" mode="inline"
                                 defaultOpenKeys={[this.state.typePage]}
                                 defaultSelectedKeys={[this.state.page]}>
+                                <Menu.Item
+                                    icon={<img src='/image/pic news.png' width="40px" height="40px"
+                                        className={`${this.state.collapsed ? "d-block" : "d-none"}`} />}
+                                    style={{ height: '60px', paddingTop: '10px', paddingLeft: '20px' }}
+                                >
+                                    <LinkLogo to={`/`} >
+                                        <div style={{ width: "160px" }}>
+                                            <img src='/image/pic news.png' width="40px" height="40px"
+                                                className={`${this.state.collapsed ? "d-none" : "d-inline-block"} mr-2`} />
+                                            <span style={{ fontSize: "20px" }}>News Managemet</span>
+                                        </div>
+                                    </LinkLogo>
+                                </Menu.Item>
                                 <Menu.Item key="home" icon={<HomeOutlined className={`${this.state.collapsed ? "d-block" : "d-none"}`} />}>
                                     <LinkMenuItem
                                         selected={this.state.page === "home" ? true : false}
@@ -106,7 +119,7 @@ class LayoutPage extends React.Component {
                                         </div>
                                     </LinkMenuItem>
                                 </Menu.Item>
-                                <SubMenu key="news" title="News" icon={<HomeOutlined className={`${this.state.collapsed ? "d-block" : "d-none"}`} />}>
+                                <SubMenu key="news" title="News" icon={<ReadOutlined className={`${this.state.collapsed ? "d-block" : "d-none"}`} />}>
                                     <Menu.Item key="allnews">
                                         <LinkMenuItem
                                             selected={this.state.page === "allnews" ? true : false}
@@ -144,7 +157,7 @@ class LayoutPage extends React.Component {
                                         </LinkMenuItem>
                                     </Menu.Item>
                                 </SubMenu>
-                                <SubMenu key="targetgroup" title="Target Group" icon={<HomeOutlined className={`${this.state.collapsed ? "d-block" : "d-none"}`} />}>
+                                <SubMenu key="targetgroup" title="Target Group" icon={<TeamOutlined className={`${this.state.collapsed ? "d-block" : "d-none"}`} />}>
                                     <Menu.Item key="alltargetgroup">
                                         <LinkMenuItem
                                             selected={this.state.page === "alltargetgroup" ? true : false}
@@ -184,12 +197,13 @@ class LayoutPage extends React.Component {
                                 </Menu.Item>
                             </Menu>
                         </Sider>
-                        <Layout className="site-layout" style={{ marginLeft: this.state.collapsed ? "80px" : "200px", transition: "0.2s" }}>
+                        <Layout className="site-layout" style={{ marginLeft: this.state.collapsed ? "80px" : "280px", transition: "0.2s" }}>
                             <div style={{ paddingTop: "50px" }}>
                                 {this.props.children}
                             </div>
                         </Layout>
-                    </Layout> : ''}
+                    </Layout> : ''
+                }
             </div>
         )
     }
