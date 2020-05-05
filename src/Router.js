@@ -12,11 +12,14 @@ import 'antd/dist/antd.css';
 import LoginPage from './Page/Login'
 import CreateNewsPage from './Page/CreateNews'
 import Layout from './Component/Layout';
+import TestRedux from './Test-redux';
 
 export default function Routes() {
     return (
         <Router>
             <Switch>
+                <Route path="/login" render={(props) => <LoginPage {...props}/>}/>
+                <Route path="/test" render={(props) => <TestRedux {...props}/>}/>
                 <Route path="/:system/news/allnews" render={(props) => <Layout {...props} >All News</Layout>}/>
                 <Route path="/:system/news/createnews" render={(props) => <Layout {...props} ><CreateNewsPage/></Layout>}/>
                 <Route path="/:system/news/createnewstype" render={(props) => <Layout {...props} >Create News Type</Layout>}/>

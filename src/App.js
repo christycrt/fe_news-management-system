@@ -1,6 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { createStore } from 'redux'
+import reducer from './reducer'
+import { Provider } from 'react-redux'
+
 import Routes from './Router'
 
 const Global = styled.div`
@@ -8,10 +12,14 @@ const Global = styled.div`
 `
 
 function App() {
+  const store = createStore(reducer);
+  
   return (
-    <Global>
-       <Routes />
-    </Global>
+    <Provider store={store}>
+      <Global>
+        <Routes />
+      </Global>
+    </Provider>
   );
 }
 
