@@ -206,7 +206,7 @@ class LayoutPage extends React.Component {
                             </Menu>
                         </Sider>
                         <Layout className={`site-layout`} style={{ marginLeft: this.state.collapsed ? "80px" : "280px", transition: "0.2s" }}>
-                            <div style={{ paddingTop: "50px" }}>
+                            <div>
                                 {this.props.children}
                             </div>
                         </Layout>
