@@ -2,6 +2,8 @@ import React from 'react'
 import styled from 'styled-components'
 import Navbar from '../Component/Navbar'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
+
 const SystemBox = styled.div`
     height: 150px;
     background-color:white;
@@ -21,18 +23,20 @@ class AllSystem extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            systems: [
-                {
-                    name: "SIT News"
-                },
-                {
-                    name: "NMS"
-                },
-                {
-                    name: "Test Jaaa"
-                },
-            ]
+            systems: [{}]
         }
+    }
+
+    componentDidMount() {
+        let header = {
+            Authorization: "Bearer "+localStorage.getItem("JWT")
+        }
+        axios.get("http://localhost:8080/getallsystems", {headers: header}).then(res => {
+            console.log(res.data)
+            this.setState({
+                systems: res.data
+            })
+        })
     }
     render() {
         return (
@@ -53,9 +57,9 @@ class AllSystem extends React.Component {
                                     {this.state.systems.map((system) => {
                                         return (
                                             <div className='col-4 p-2'>
-                                                <a href={`/${system.name}/home`}>
+                                                <a href={`/${system.SystemName}/home`}>
                                                     <SystemBox className='p-3 rounded shadow-sm'>
-                                                        Add System
+                                                        {system.SystemName}
                                                 </SystemBox>
                                                 </a>
                                             </div>
