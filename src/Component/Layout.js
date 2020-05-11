@@ -37,34 +37,32 @@ class LayoutPage extends React.Component {
         this.state = {
             data: 'wait',
             system: '',
+            systemid: '',
             typePage: '',
             page: '',
             collapsed: false,
         }
     }
     async componentWillMount() {
-        const { system } = this.props.match.params
-        await this.setState({ system: system })
+        const { system, systemid } = this.props.match.params
+        await this.setState({ system: system, systemid: systemid })
         let path = this.props.location.pathname + "";
         let page = '';
         let typePage = '';
-        if (path === "/allsystem") {
-            page = 'allsystem'
+        if (path.substring(this.state.system.length+this.state.systemid.length + 2) === "/home") {
+            page = 'home'
         } else
-            if (path.substring(this.state.system.length + 1) === "/home") {
-                page = 'home'
+            if (path.substring(this.state.system.length+this.state.systemid.length + 2) === "/dashboard") {
+                page = 'dashboard'
             } else
-                if (path.substring(this.state.system.length + 1) === "/dashboard") {
-                    page = 'dashboard'
+                if (path.substring(this.state.system.length+this.state.systemid.length + 2, this.state.system.length+this.state.systemid.length + 7) === "/news") {
+                    page = path.substring(this.state.system.length+this.state.systemid.length + 8)
+                    typePage = 'news'
                 } else
-                    if (path.substring(this.state.system.length + 1, this.state.system.length + 6) === "/news") {
-                        page = path.substring(this.state.system.length + 7)
-                        typePage = 'news'
-                    } else
-                        if (path.substring(this.state.system.length + 1, this.state.system.length + 13) === "/targetgroup") {
-                            page = path.substring(this.state.system.length + 14)
-                            typePage = 'targetgroup'
-                        }
+                    if (path.substring(this.state.system.length +this.state.systemid.length + 2, this.state.system.length +this.state.systemid.length + 14) === "/targetgroup") {
+                        page = path.substring(this.state.system.length +this.state.systemid.length + 15)
+                        typePage = 'targetgroup'
+                    }
         await this.setState({ typePage: typePage, page: page, data: "ready" })
         console.log(this.state)
     }
@@ -118,7 +116,7 @@ class LayoutPage extends React.Component {
                                 <Menu.Item key="home" icon={<HomeOutlined className={`${this.state.collapsed ? "d-block" : "d-none"}`} />}>
                                     <LinkMenuItem
                                         selected={this.state.page === "home" ? true : false}
-                                        to={`/${this.state.system}/home`}
+                                        to={`/${this.state.system}/${this.state.systemid}/home`}
                                         onClick={() => this.onChangePage('home', '')}
                                     >
                                         <div style={{ width: "200px" }}>
@@ -131,7 +129,7 @@ class LayoutPage extends React.Component {
                                     <Menu.Item key="allnews">
                                         <LinkMenuItem
                                             selected={this.state.page === "allnews" ? true : false}
-                                            to={`/${this.state.system}/news/allnews`}
+                                            to={`/${this.state.system}/${this.state.systemid}/news/allnews`}
                                             onClick={() => this.onChangePage('allnews', 'news')}
                                         >
                                             <div style={{ width: "200px" }}>
@@ -143,7 +141,7 @@ class LayoutPage extends React.Component {
                                     <Menu.Item key="createnews">
                                         <LinkMenuItem
                                             selected={this.state.page === "createnews" ? true : false}
-                                            to={`/${this.state.system}/news/createnews`}
+                                            to={`/${this.state.system}/${this.state.systemid}/news/createnews`}
                                             onClick={() => this.onChangePage('createnews', 'news')}
                                         >
                                             <div style={{ width: "200px" }}>
@@ -155,7 +153,7 @@ class LayoutPage extends React.Component {
                                     <Menu.Item key="createnewstype">
                                         <LinkMenuItem
                                             selected={this.state.page === "createnewstype" ? true : false}
-                                            to={`/${this.state.system}/news/createnewstype`}
+                                            to={`/${this.state.system}/${this.state.systemid}/news/createnewstype`}
                                             onClick={() => this.onChangePage('createnewstype', 'news')}
                                         >
                                             <div style={{ width: "200px" }}>
@@ -169,7 +167,7 @@ class LayoutPage extends React.Component {
                                     <Menu.Item key="alltargetgroup">
                                         <LinkMenuItem
                                             selected={this.state.page === "alltargetgroup" ? true : false}
-                                            to={`/${this.state.system}/targetgroup/alltargetgroup`}
+                                            to={`/${this.state.system}/${this.state.systemid}/targetgroup/alltargetgroup`}
                                             onClick={() => this.onChangePage('alltargetgroup', 'targetgroup')}
                                         >
                                             <div style={{ width: "200px" }}>
@@ -181,12 +179,12 @@ class LayoutPage extends React.Component {
                                     <Menu.Item key="createtargetgroup">
                                         <LinkMenuItem
                                             selected={this.state.page === "createtargetgroup" ? true : false}
-                                            to={`/${this.state.system}/targetgroup/createtargetgroup`}
+                                            to={`/${this.state.system}/${this.state.systemid}/targetgroup/createtargetgroup`}
                                             onClick={() => this.onChangePage('createtargetgroup', 'targetgroup')}
                                         >
                                             <div style={{ width: "200px" }}>
                                                 <PlusOutlined />
-                                                Create news type
+                                                Create target group
                                             </div>
                                         </LinkMenuItem>
                                     </Menu.Item>
@@ -194,7 +192,7 @@ class LayoutPage extends React.Component {
                                 <Menu.Item key="dashboard" icon={<AreaChartOutlined className={`${this.state.collapsed ? "d-block" : "d-none"}`} />}>
                                     <LinkMenuItem
                                         selected={this.state.page === "dashboard" ? true : false}
-                                        to={`/${this.state.system}/dashboard`}
+                                        to={`/${this.state.system}/${this.state.systemid}/dashboard`}
                                         onClick={() => this.onChangePage('dashboard', '')}
                                     >
                                         <div style={{ width: "200px" }}>
