@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
+import jwtDecode from 'jwt-decode'
 
 const Bar = styled.nav`
     background-color: white;
@@ -9,7 +10,7 @@ const Bar = styled.nav`
 `
 
 const Navbar = (props) => {
-    console.log(props.page)
+    let user = jwtDecode(localStorage.getItem("JWT"))
     return (
         <Bar
             className="navbar navbar-light shadow-sm justify-content-between"
@@ -22,7 +23,7 @@ const Navbar = (props) => {
             <div>
             </div>
             <div>
-                Hi' Panupong
+                Hi' {user.fname}
             <img src='/image/user-profile.png' className="ml-3" width="34px" height="34px" />
             </div>
         </Bar>
