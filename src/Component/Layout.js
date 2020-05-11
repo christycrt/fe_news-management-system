@@ -203,8 +203,8 @@ class LayoutPage extends React.Component {
                                 </Menu.Item>
                             </Menu>
                         </Sider>
-                        <Layout className={`site-layout`} style={{ marginLeft: this.state.collapsed ? "80px" : "280px", transition: "0.2s" }}>
-                            <div>
+                        <Layout className={`site-layout`} style={{backgroundColor:"white", marginLeft: this.state.collapsed ? "80px" : "280px", transition: "0.2s" }}>
+                            <div className="pt-5">
                                 {this.props.children}
                             </div>
                         </Layout>

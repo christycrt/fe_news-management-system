@@ -79,7 +79,7 @@ class CreateNewsTypePage extends React.Component {
     }
     render() {
         return (
-            <Background className="pt-5">
+            <Background>
                 <div className="container pt-5">
                     <h3>Create news type</h3>
                     <div className="icons-list">
