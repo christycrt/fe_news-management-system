@@ -35,17 +35,29 @@ class LoginPage extends Component {
         super(props)
         this.state = {
             login: false,
+            register: false,
+            userid: '',
         }
     }
     componentDidMount() {
-        if (new URLSearchParams(this.props.location.search).get("code") !== null) {
-            let data = new FormData()
-            data.append('code', new URLSearchParams(this.props.location.search).get("code"))
-            axios.post('http://localhost:8080/linelogin', data).then((res) => {
-                console.log(res.data)
-                localStorage.setItem('JWT', res.data)
-                this.setState({ login: true })
-            })
+        if (localStorage.getItem('JWT') !== null) {
+            this.setState({ login: true })
+        } else {
+            if (new URLSearchParams(this.props.location.search).get("code") !== null) {
+                let data = new FormData()
+                data.append('code', new URLSearchParams(this.props.location.search).get("code"))
+                axios.post('http://localhost:8080/linelogin', data).then((res) => {
+                    localStorage.setItem('JWT', res.data)
+                    this.setState({ login: true })
+                }).catch(err => {
+                    if (err.response) {
+                        this.setState({
+                            userid: err.response.data,
+                            register: true
+                        })
+                    }
+                })
+            }
         }
     }
     onLoginLine = () => {
@@ -53,7 +65,10 @@ class LoginPage extends Component {
     }
     render() {
         if (this.state.login) {
-            return <Redirect push to="/nms/home" />
+            return <Redirect push to="/allsystem" />
+        }
+        if (this.state.register) {
+            return <Redirect push to={{ pathname: "/register", state: { userid: this.state.userid } }} />
         }
         return (
             <div className="col-12">
