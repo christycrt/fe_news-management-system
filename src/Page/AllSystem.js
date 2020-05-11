@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import Navbar from '../Component/Navbar'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
+import withAuth from '../HOC/withAuth'
 
 const SystemBox = styled.div`
     height: 150px;
@@ -31,7 +32,7 @@ class AllSystem extends React.Component {
         let header = {
             Authorization: "Bearer "+localStorage.getItem("JWT")
         }
-        axios.get("http://localhost:8080/getallsystems", {headers: header}).then(res => {
+        axios.get("http://localhost:8080/system/allsystem", {headers: header}).then(res => {
             console.log(res.data)
             this.setState({
                 systems: res.data
@@ -52,15 +53,15 @@ class AllSystem extends React.Component {
                                         <SystemBox className='p-3 rounded shadow-sm'>
                                             +
                                             Add System
-                            </SystemBox>
+                                        </SystemBox>
                                     </div>
                                     {this.state.systems.map((system) => {
                                         return (
                                             <div className='col-4 p-2'>
-                                                <a href={`/${system.SystemName}/home`}>
+                                                <a href={`/${system.SystemName}/${system.ID}/home`}>
                                                     <SystemBox className='p-3 rounded shadow-sm'>
                                                         {system.SystemName}
-                                                </SystemBox>
+                                                    </SystemBox>
                                                 </a>
                                             </div>
                                         )
@@ -75,4 +76,4 @@ class AllSystem extends React.Component {
     }
 }
 
-export default AllSystem
+export default withAuth(AllSystem)
